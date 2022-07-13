@@ -1,16 +1,54 @@
+// import { galleryItems } from './gallery-items.js';
+// // Change code below this line
+
+// const galleryEl = document.querySelector('.gallery');
+
+// const galleryItemsEl = createGallery(galleryItems);
+// galleryEl.addEventListener('click', galleryEventEl);
+
+// galleryEl.insertAdjacentHTML('beforeend', galleryItemsEl);
+// function createGallery(el) {
+//     return el.map(({ preview, original, description }) => {
+//         return `
+//   <a class="gallery__link" href="${original}">
+//     <img
+//       class="gallery__image"
+//       src="${preview}"
+//       data-source="${original}"
+//       alt="${description}"
+//     />
+//   </a>
+// `
+//     }).join("");
+// }
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+const gallery = document.querySelector('.gallery');
 
+const galleryMarkup = createGallery(galleryItems);
 
+gallery.insertAdjacentHTML("beforeend", galleryMarkup);
 
-
-
-// import * as basicLightbox from 'basiclightbox'
-
-// const instance = basicLightbox.create(`
-//     <img src="assets/images/image.png" width="800" height="600">
-// `)
-
-// instance.show()
+function createGallery(img) {
+  return img
+    .map(({ original, preview, description }) => {
+      return `
+        <a
+        class="gallery__item"
+        href="${original}">
+            <img
+            class="gallery__image"
+            src="${preview}"
+            alt="${description}" />
+        </a>
+    `;
+    })
+    .join("");
+};
+  
+new SimpleLightbox(".gallery a", {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 500,
+});
