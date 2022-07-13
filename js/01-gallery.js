@@ -25,5 +25,24 @@ function createGallery(el) {
 }
 
 function galleryEventEl(el) {
-  el.prevent
+  el.preventDefault();
+  const targetEl = el.target;
+
+  if (targetEl.nodeName !== "IMG") {
+    return
+  }
+  let imgPickerEl = el.target.dataset.source;
+
+const instance = basicLightbox.create(`
+    <img src="${imgPickerEl}" width="800" height="600">
+`)
+
+  instance.show()
+  
+  galleryEl.addEventListener("keydown", el => {
+    el.preventDefault();
+    if (el.code === 'Escape') {
+      instance.close();
+    }
+  })
 };
